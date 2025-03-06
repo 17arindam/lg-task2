@@ -27,10 +27,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Taj Mahal</name>
-          <description><![CDATA[
-            <h2>Taj Mahal</h2>
-            <p>Located in Agra, India...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>78.0421323,27.1750488,0</coordinates></Point>
         </Placemark>
 
@@ -52,10 +53,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Great Wall of China</name>
-          <description><![CDATA[
-            <h2>Great Wall of China</h2>
-            <p>A historic series of fortifications...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>117.2361,40.6769,0</coordinates></Point>
         </Placemark>
 
@@ -77,10 +79,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Petra</name>
-          <description><![CDATA[
-            <h2>Petra</h2>
-            <p>An ancient city in Jordan...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>35.4444,30.3285,0</coordinates></Point>
         </Placemark>
 
@@ -102,10 +105,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Colosseum</name>
-          <description><![CDATA[
-            <h2>Colosseum</h2>
-            <p>An iconic amphitheater in Rome...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>12.4924,41.8902,0</coordinates></Point>
         </Placemark>
 
@@ -127,10 +131,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Christ the Redeemer</name>
-          <description><![CDATA[
-            <h2>Christ the Redeemer</h2>
-            <p>A massive statue in Rio de Janeiro...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>-43.2105,-22.9519,0</coordinates></Point>
         </Placemark>
 
@@ -141,7 +146,7 @@ class KML1 {
           <LookAt>
             <longitude>-72.5450</longitude>
             <latitude>-13.1631</latitude>
-            <altitude>150</altitude>
+            <altitude>250</altitude>
             <heading>0</heading>
             <tilt>45</tilt>
             <range>1200</range>
@@ -152,10 +157,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Machu Picchu</name>
-          <description><![CDATA[
-            <h2>Machu Picchu</h2>
-            <p>An ancient Incan citadel...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>-72.5450,-13.1631,0</coordinates></Point>
         </Placemark>
 
@@ -166,7 +172,7 @@ class KML1 {
           <LookAt>
             <longitude>-88.5678</longitude>
             <latitude>20.6843</latitude>
-            <altitude>150</altitude>
+            <altitude>200</altitude>
             <heading>0</heading>
             <tilt>45</tilt>
             <range>1000</range>
@@ -177,10 +183,11 @@ class KML1 {
         </gx:Wait>
         <Placemark>
           <name>Chichen Itza</name>
-          <description><![CDATA[
-            <h2>Chichen Itza</h2>
-            <p>A large pre-Columbian archaeological site...</p>
-          ]]></description>
+          <ExtendedData>
+            <Data name="wait_duration">
+              <value>11.0</value>
+            </Data>
+          </ExtendedData>
           <Point><coordinates>-88.5678,20.6843,0</coordinates></Point>
         </Placemark>
 

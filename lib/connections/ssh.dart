@@ -11,6 +11,7 @@ import 'package:lg_task_2/entities/screen_overlay.dart';
 import 'package:lg_task_2/kml/kml1.dart';
 import 'package:lg_task_2/kml/kml2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xml/xml.dart' as xml;
 
 class SSH {
   late String _host;
@@ -110,7 +111,8 @@ class SSH {
     }
   }
 
-  Future<void> sendKML1(BuildContext context, SSHClient _client) async {
+  Future<void> sendKML1(
+      BuildContext context, SSHClient _client, String kmlString) async {
     try {
       if (_client == null) {
         context.read<TimelineBloc>().add(
@@ -129,7 +131,7 @@ class SSH {
           mode: SftpFileOpenMode.create | SftpFileOpenMode.write);
 
       final kmlStream =
-          Stream.fromIterable([Uint8List.fromList(utf8.encode(KML1.kml))]);
+          Stream.fromIterable([Uint8List.fromList(utf8.encode(kmlString))]);
       await sftpFile.write(kmlStream);
       await sftpFile.close();
 
@@ -142,28 +144,43 @@ class SSH {
       await Future.delayed(const Duration(seconds: 2));
       await _client.run('echo "playtour=World Wonders Tour" > /tmp/query.txt');
 
-      final steps = [
-        "Visiting Taj Mahal...",
-        "Visiting Great Wall of China...",
-        "Visiting Petra...",
-        "Visiting Colosseum...",
-        "Visiting Machu Picchu...",
-        "Visiting Christ the Redeemer...",
-        "Visiting Chichen Itza...",
-      ];
+      // Parse KML and extract names & wait durations from ExtendedData
+      final document = xml.XmlDocument.parse(kmlString);
+      final placemarks = document.findAllElements('Placemark');
 
-      for (var step in steps) {
+      List<Map<String, dynamic>> tourStops = [];
+
+      for (var placemark in placemarks) {
+        final nameElement = placemark.findElements('name').first;
+        final name = nameElement.text;
+
+        final extendedData = placemark.findElements('ExtendedData');
+        final waitDurationElement = extendedData
+            .expand((data) => data.findElements('Data'))
+            .where((data) => data.getAttribute('name') == 'wait_duration')
+            .map((data) => data.findElements('value').first.text)
+            .firstOrNull;
+
+        final waitDuration = waitDurationElement != null
+            ? double.tryParse(waitDurationElement) ?? 5.0
+            : 5.0;
+
+        tourStops.add({'name': name, 'duration': waitDuration});
+      }
+
+      // Iterate through stops with their wait duration
+      for (var stop in tourStops) {
         context.read<TimelineBloc>().add(
-              AddTimelineStep(step: step),
+              AddTimelineStep(step: "Visiting ${stop['name']}..."),
             );
-        await Future.delayed(const Duration(seconds: 11));
+        await Future.delayed(Duration(seconds: stop['duration'].toInt()));
       }
 
       context.read<TimelineBloc>().add(
             AddTimelineStep(step: "Finalizing tour..."),
           );
       await _client.run('echo "exittour=true" > /tmp/query.txt');
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 2));
       await _client.run('rm /var/www/html/kmls/seven_wonders.kml');
       await _client.run('echo "" > /var/www/html/kmls.txt');
 

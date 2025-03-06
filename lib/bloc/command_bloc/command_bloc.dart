@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:lg_task_2/connections/ssh.dart';
+import 'package:lg_task_2/kml/kml1.dart';
 import 'package:meta/meta.dart';
 
 part 'command_event.dart';
@@ -34,7 +35,7 @@ class CommandBloc extends Bloc<CommandEvent, CommandState> {
           emit(CommandError("SSH client is not connected"));
           return;
         }
-        await ssh.sendKML1(event.context, ssh.client!);
+        await ssh.sendKML1(event.context, ssh.client!,KML1.kml);
         emit(CommandSuccess("Tour Completed"));
       } catch (e) {
         emit(CommandError(e.toString()));
